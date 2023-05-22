@@ -1,0 +1,132 @@
+openapi: "3.0.1"
+info:
+  title: API Products
+  version: "1.0"
+paths:
+  /products/:
+    get:
+      summary: Obtiene todos los Productos
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Todos los Productos fueron obtenidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Products"
+    post:
+      summary: Crea un Producto
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Se ah creado un Producto exitosamente
+  /products/{uid}:
+    get:
+      summary: Obtines un solo Producto
+      tags:
+        - Products
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: Id del Prodructo que buscas
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+    put:
+      summary: Actualiza un Producto
+      tags:
+        - Products
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: Id del Producto
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto Actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Id de mongo
+        name:
+          type: string
+          description: Nombre del Producto
+        description:
+          type: string
+          description: Descripcion del producto
+        price:
+          type: number
+          description: Precio del producto
+        stock:
+          type: number
+          description: Stock del producto
+        category:
+          type: string
+          description: Categoria del producto
+      example:
+        _id: ObjetId("123bnukk123njj123n")
+        name: "Zapatilla Vans"
+        description: "zapatilla vans "
+        price: 14000
+        stock: 32
+        category: "Vans"
+  requestBodies:
+    updateUser:
+      description: Body con la info del producto a actualizar
+      content:
+        application/json:
+          schema:
+            type: objet
+          properties:
+            _id:
+              type: string
+              description: Id de mongo
+            name:
+              type: string
+              description: Nombre del Producto
+            description:
+              type: string
+              description: Descripcion del producto
+            price:
+              type: number
+              description: Precio del producto
+            stock:
+              type: number
+              description: Stock del producto
+            category:
+              type: string
+              description: Categoria del producto
+          example:
+            _id: ObjetId("123bnukk123njj123n")
+            name: "Zapatilla Vans"
+            description: "zapatilla vans "
+            price: 14000
+            stock: 32
+            category: "Vans"

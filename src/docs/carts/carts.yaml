@@ -1,0 +1,95 @@
+openapi: "3.0.1"
+info:
+  title: API Cart
+  version: "1.0"
+paths:
+  /cart/:
+    get:
+      summary: Obtiene todos los Carritos
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Todos los Carritos fueron obtenidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Cart"
+    post:
+      summary: Crea un carrito
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Se ah creado un Carrito exitosamente
+  /cart/{uid}:
+    get:
+      summary: Obtines un solo carrito
+      tags:
+        - Carts
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: Id del carrito que buscas
+          schema:
+            type: string
+      responses:
+        "200":
+          description: carrito encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+    put:
+      summary: Actualiza un carrrito
+      tags:
+        - Carts
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: Id del carrito
+          schema:
+            type: string
+      responses:
+        "200":
+          description: carrito Actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cart"
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Id de mongo
+        products:
+          type: array
+          description: Productos en el carrito
+  requestBodies:
+    updateUser:
+      description: Body con la info del Carrito a actualizar
+      content:
+        application/json:
+          schema:
+            type: objet
+          properties:
+            _id:
+              type: string
+              description: Id de mongo
+            products:
+              type: array
+              description: produstos del carrito
+            
