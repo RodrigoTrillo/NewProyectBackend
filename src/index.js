@@ -10,10 +10,30 @@ const initializePassport = require('./config/passport.config')
 const handlebars = require('express-handlebars')
 const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUiExpress = require('swagger-ui-express')
+const multer = require('multer')
 //const __dirname = require('./utils/cryptPassword')
 
 const app = express()
 const port = process.env.PORT||3000
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        let folder;
+        if (file.fieldname === 'profileImage') {
+          folder = 'profiles/';
+        } else if (file.fieldname === 'productImage') {
+          folder = 'products/';
+        } else {
+          folder = 'documents/';
+        }
+        cb(null, folder);
+      },
+      filename: function (req, file, cb) {
+        cb(null, file.originalname);
+      }
+  });
+
+const upload = multer({ storage: storage });
 
 const swaggerOptions ={
     definition:{

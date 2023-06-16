@@ -15,8 +15,20 @@ const userSchema = new mongoose.Schema({
     role:{
         type:String,
         require:true
-    }
+    },
+    documents: [
+        {
+          name: String,
+          reference: String,
+        },
+    ],
+    last_connection: Date,
 })
+
+userSchema.methods.updateLastConnection = function() {
+    this.last_connection = new Date();
+    return this.save();
+  };
 
 const User = mongoose.model(userCollection,userSchema)
 
