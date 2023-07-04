@@ -7,11 +7,11 @@ const cartController = require('../controllers/cart.controller')
 
 const router = app =>{
     app.use('/',viewsTemplateController)
-    app.use('/products', productsController)
+    app.use('/api/products', productsController)
     app.use('/users',usersController)
     app.use('/mail',mailController)
     app.use('/auth',authController)
-    app.use('/cart',cartController)
+    app.use('/api/carts',cartController)
 }
 
 module.exports = router

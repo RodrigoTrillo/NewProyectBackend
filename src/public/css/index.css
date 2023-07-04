@@ -1,39 +1,383 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Roboto:wght@300;400;500;700&display=swap');
+
+
+nav {
+  background-color: #FF7683;
+  font-size: 5rem;
+  top: 0;
+  width: 100%;
+}
+
 body {
-    background-color: beige;
-  }
-  
-  h1 {
-    color: black;
-  }
-  
-  p {
-    color: green;
-    size: 50px;
-  }
-  
-  .items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .card {
-    background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-    padding: 20px;
-  }
-  
-  .card h2 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .card p {
-    text-align: center;
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 20px;
-  }
+  background-color: #FF7683;
+  font-family: Arial, sans-serif;
+  margin: 0
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+li {
+  list-style-type: none;
+}
+
+
+h3 {
+  font-size: 30px;
+}
+
+/* Estilos para el formulario */
+#addProdForm {
+  max-width: 400px;
+  /* Ancho máximo del formulario */
+  margin: 0 auto;
+  /* Centrar horizontalmente el formulario */
+}
+
+#editForm {
+  max-width: 400px;
+  /* Ancho máximo del formulario */
+  margin: 0 auto;
+}
+
+.form-label {
+  display: block;
+  /* Mostrar etiquetas en bloque (verticalmente) */
+  margin-bottom: 5px;
+  /* Espacio entre etiquetas */
+}
+
+.form-input {
+  width: 100%;
+  /* Ancho del 100% para ocupar todo el espacio disponible */
+  padding: 8px;
+  /* Espacio interno de los campos de entrada */
+  margin-bottom: 10px;
+  /* Espacio entre campos de entrada */
+}
+
+.form-button {
+  display: block;
+  /* Mostrar botón en bloque (verticalmente) */
+  width: 100%;
+  /* Ancho del 100% para ocupar todo el espacio disponible */
+  padding: 10px;
+  /* Espacio interno del botón */
+  margin-top: 10px;
+  /* Espacio entre el botón y los campos de entrada */
+  background-color: #007bff;
+  /* Color de fondo del botón */
+  color: #fff;
+  /* Color del texto del botón */
+  border: none;
+  /* Sin borde en el botón */
+  cursor: pointer;
+  /* Cambiar cursor al pasar por encima del botón */
+}
+
+.form-button:hover {
+  background-color: #0056b3;
+  /* Cambiar color de fondo del botón al pasar por encima */
+}
+
+/* Estilos para la etiqueta select */
+.form-select {
+  width: 100%;
+  /* Ancho del 100% para ocupar todo el espacio disponible */
+  padding: 8px;
+  /* Espacio interno de la etiqueta select */
+  margin-bottom: 10px;
+  /* Espacio entre etiqueta select y otros elementos */
+  background-color: #fff;
+  /* Color de fondo de la etiqueta select */
+  color: #000;
+  /* Color del texto de la etiqueta select */
+  border: 1px solid #ccc;
+  /* Borde de la etiqueta select */
+  border-radius: 4px;
+  /* Bordes redondeados de la etiqueta select */
+}
+
+.form-select:focus {
+  outline: none;
+  /* Quitar el contorno al hacer clic en la etiqueta select */
+  border-color: #007bff;
+  /* Cambiar color del borde al hacer clic en la etiqueta select */
+}
+
+/* Styles para mostrar productos */
+
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.product-item {
+  flex-basis: calc(33.33% - 20px);
+  /* ajusta el tamaño de la tarjeta */
+  margin-bottom: 20px;
+  /* ajusta el espacio entre las tarjetas */
+  display: flex;
+  /* Agrega display: flex para alinear los elementos en la tarjeta */
+  align-items: center;
+  /* Agrega align-items: center para centrar verticalmente los elementos */
+  background-color: #F8D7DB;
+  /* Color de fondo para pañalera */
+  padding: 10px;
+}
+
+.product-item img {
+  width: 100px;
+  margin-right: 10px;
+}
+
+.product-item li {
+  list-style-type: none;
+}
+
+.product-item h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.product-item h4 {
+  margin: 5px 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.product-item p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.product-item .btn-delete {
+  margin-top: 10px;
+  background-color: #E74C3C;
+  /* Color de fondo para botón "Añadir al carrito" */
+  color: #FFF;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.product-item .btn-add-to-cart:hover {
+  background-color: #C0392B;
+  /* Color de fondo en hover para botón "Añadir al carrito" */
+}
+
+.product-item a {
+  margin-top: 10px;
+  text-decoration: none;
+}
+
+.product-item button {
+  background-color: #3498DB;
+  /* Color de fondo para botón "Editar producto" */
+  color: #FFF;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.product-item button:hover {
+  background-color: #2980B9;
+  /* Color de fondo en hover para botón "Editar producto" */
+}
+
+.btn-custom {
+  height: 25vh;
+  width: 60vh;
+  line-height: 25vh;
+  font-size: 3rem;
+  margin: 2vh;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+}
+
+.navbar-nav .nav-link {
+  font-size: 1.2rem;
+}
+
+.box-title {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.total-sold {
+  color: #666;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+#updateForm {
+  margin-top: 10px;
+}
+
+.price-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.price-input {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.update-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.daily-sales,
+.monthly-sales {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.daily-sales li,
+.monthly-sales li {
+  margin-bottom: 5px;
+}
+
+.section-title {
+  color: #666;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.close-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #FF4500;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+
+.box-div {
+  margin-left: 15px;
+  margin-right: 25%;
+}
+
+
+.title {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 24px;
+  color: #333;
+}
+
+.form-container {
+  max-width: 300px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.label {
+  display: block;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: bold;
+}
+
+.input-field {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.submit-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.product-details {
+  margin: auto;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 65vh;
+  width: 95%;
+  background-color: #FF7683;
+  border-radius: 10px;
+}
+
+.product-image {
+  width: 30%;
+  margin-left: 40px;
+  border-radius: 15px;
+}
+
+.product-image img {
+  width: 100%;
+  height: auto;
+}
+
+.product-data {
+  width: 70%;
+  margin-left: 50px;
+  font-size: 160%;
+}
+
+.product-data h2 {
+  font-size: 24px;
+}
+
+.product-data p {
+  margin-bottom: 10px;
+}
+
+.product-data strong {
+  font-weight: bold;
+}
+
+.edit-button {
+  background-color: #4287f5;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-delete {
+  background-color: #f54242;
+  color: white;
+  border: none;
+  cursor: pointer;
+}

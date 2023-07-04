@@ -1,87 +1,115 @@
 const {Router, response} = require('express')
-const Product = require('../dao/models/Products.model')
-const ProductDao = require('../dao/Products.dao')
 
-const router = Router()
+const ProductsMongoDao = require('../dao/Products.dao');
+const privateAccess = require("../midlewares/privateAcces");
 
- // obtiene todos los productos 
-router.get = ('/', async(req, res, next)=>{
-    try {
-        const products =await Products.getAll()
-        res.status(200).json({message: products}) 
-    } catch(error){
-        
-        
-    }
+const router = Router();
+const Product = new ProductsMongoDao()
+
+router.get("/", privateAccess, async (req, res) => {
+  const { orderBy, type, brand, size, page, perPage,  } = req.query;
+  const {user} = req.session
+  const query={}//Solamente deseo filtrar por esos campos
+  if(type) query.type = type
+  if(brand) query.brand = brand
+  if(size) query.size = size
+
+  const order = orderBy || 'name'
+
+  const limit = perPage || 10
+  
+  const options = {
+    page: page||1,
+    sort: {[orderBy]: 1},
+    limit
+  }
+
+  try {
+    const products = await Product.paginate(query, options);
+    const productsMapped = products.docs.map(({name, description, unitPrice, type, _id, img, stock, boxQuantity, salePrice,size})=>({
+      id: _id,
+      name,
+      description,
+      unitPrice,
+      type,
+      img,
+      stock,
+      boxQuantity,
+      salePrice,
+      size
+    }))
+    res.render('products.handlebars',{ productsMapped, user });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+
+router.post("/", privateAccess,async (req, res) => {
+  const product = req.body
+  try {
+    await Product.created(product);
+    res.status(201).json({ msj: "product added" });
+  } catch (error) {
+    res.status(500).json({msj: error})
+  }
+});
+
+router.patch('/:pid', privateAccess,async(req,res)=>{
+  const campos = req.body
+  const {pid} = req.params
+  
+  const filter = {_id: pid}
+/*   const update = {unitPrice:unitPrice} */
+
+  try {
+    await Product.updateProduct(filter, {$set:campos}) 
+    res.send('Product updated')
+  } catch (error) {
+    console.log(error)
+  }
+
 })
 
+router.delete("/", privateAccess,async (req, res) => {
+  await Product.deleteMany();
+  res.send("productos eliminados");
+});
 
- //obtener un producto por su ID
-router.get('/:id', async(req,res)=>{
-    const productId = req.params.id
-    try {
-        const product = await Product.getById()
-        if(!product){
-            res.status(404).json({message: 'Product not found'})
-        }else{
-            res.status(200).json({message: product})
-        }
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+router.delete('/:id', async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const deletedProduct = await Product.deleteProductById(productId);
+
+    if (!deletedProduct) {
+      return res.status(404).json({ message: 'Product not found' });
     }
+
+    res.status(200).json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+router.get('/:pid/update', privateAccess,async(req, res)=>{
+  const {pid} = req.params
+  const data = await Product.findOne(pid)
+  res.render('editProd.handlebars', data)
 })
 
- // Crea un nuevo Producto
-router.post('/', async(req,res)=>{
-    try {
-        const {name, description, price, category, image, stock} = req.body
-        const productInfo ={
-            name,
-            description,
-            price,
-            category,
-            image,
-            stock
-        }
-        const Products = new ProductDao('products.json')
-        const newProduct = await Product.create(productInfo)
-        res.status(201).json(newProduct)
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+router.get('/addProds', async (req, res)=>{
+  res.render('addProduct.handlebars')
 })
 
-
-//Actualizar un productoExistente
-
-router.put('/:id',async(req,res)=>{
-    const productId = req.params.id
-    const {name, description, price, category, image, stock} = req.body
-    const productDto = new ProductDto(name, description, price, category, image, stock)
-    try {
-        const updateProduct = await Product.update(productId, productDto)
-        if(!updateProduct){
-            res.status(404).json({message:'Product not found'})
-        }else{
-            res.status(200).json(updateProduct)
-        }       
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+router.get('/:pid', privateAccess , async (req, res)=>{
+  const {pid} = req.params
+  try {
+    const prod = await Product.findOne(pid)
+    res.render('oneProd.handlebars', prod)
+  } catch (error) {
+    res.status(400).json({msj: error.message})
+  }
 })
-
-router.delete('/:id', async(req,res)=>{
-    const productId = req.params.id
-    try {
-        const deleteProduct = await Product.delete(productId)
-        if (!deleteProduct) {
-            res.status(404).json({message: 'Product not found'})
-        } else {
-            res.status(200).json(deleteProduct)
-        }
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-})
-
-module.exports = router
+module.exports = router;

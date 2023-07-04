@@ -1,0 +1,39 @@
+<h1>Editar producto</h1>
+<form id="editForm" class="form-container">
+
+<label for="name" class="form-label">Nombre</label>
+  <input type="text" name="name"  class="form-input" />
+
+  <label for="brand" class="form-label">Marca</label>
+  <input type="text" name="brand"  class="form-input" />
+
+  <label for="type" class="form-label">Tipo de producto</label>
+  <input type="text" name="type"  class="form-input" />
+
+  <label for="size" class="form-label">Talle</label>
+  <select name="size" id="size"  class="form-select">
+    <option value="undefined">Undefined</option>
+    <option value="35">35</option>
+    <option value="36">36</option>
+    <option value="37">37</option>
+    <option value="38">38</option>
+    <option value="39">39</option>
+    <option value="40">40</option>
+    <option value="41">41</option>
+  </select>
+
+  <label for="description" class="form-label">Descripción</label>
+  <input type="text" name="description"  class="form-input" />
+
+  <label for="img" class="form-label">Imagen</label>
+  <input type="text" name="img"  class="form-input" />
+
+  <label for="unitPrice" class="form-label">Precio</label>
+  <input type="number" name="unitPrice"  class="form-input" />
+
+  <label for="stock" class="form-label">Stock</label>
+  <input type="number" name="stock"  class="form-input" />
+
+  <button type="submit" data-product-id="{{_id}} " class="form-button">Editar</button>
+</form>
+<script src="/NewProyectBackend/src/public/js/editProd.js"></script>

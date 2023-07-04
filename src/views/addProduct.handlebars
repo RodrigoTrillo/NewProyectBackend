@@ -1,0 +1,57 @@
+<h1>Añadir producto nuevo</h1>
+<form id="addProdForm" class="form-container">
+
+
+  <label for="brand" class="form-label">Marca</label>
+  <select name="brand" id="brand" required class="form-select">
+    <option value="">Todas</option>
+    <option value="Nike">Nike</option>
+    <option value="Vans">Vans</option>
+    <option value="Converse">Converse</option>
+    <option value="Fila">Fila</option>
+    <option value="Reebook">Reebook</option>
+    <option value="adidas">Adidas</option>
+  </select>
+
+
+  <label for="type" class="form-label">Tipo de producto</label>
+  <select name="type" id="type" required class="form-select">
+    <option value="">Todos</option>
+    <option value="Running">Running</option>
+    <option value="Street">Street</option>
+    <option value="Montain">Montain</option>
+    <option value="Sport">Sport</option>
+  </select>
+
+
+  <label for="size" class="form-label">Talle</label>
+  <select name="size" id="size" required class="form-select">
+    <option value="undefined">Undefined</option>
+    <option value="35">35</option>
+    <option value="36">36</option>
+    <option value="37">37</option>
+    <option value="38">38</option>
+    <option value="39">39</option>
+    <option value="40">40</option>
+    <option value="41">41</option>
+  </select>
+
+  <label for="name" class="form-label">Nombre</label>
+  <input type="text" name="name" required class="form-input" />
+
+  <label for="description" class="form-label">Descripción</label>
+  <input type="text" name="description" required class="form-input" />
+
+  <label for="img" class="form-label">Imagen</label>
+  <input type="text" name="img" required class="form-input" />
+
+  <label for="unitPrice" class="form-label">Precio</label>
+  <input type="number" name="unitPrice" required class="form-input" />
+
+  
+  <label for="stock" class="form-label">Stock</label>
+  <input type="number" name="stock" required class="form-input" />
+
+  <button type="submit" class="form-button">Añadir</button>
+</form>
+<script src="/NewProyectBackend/src/public/js/addProd.js"></script>

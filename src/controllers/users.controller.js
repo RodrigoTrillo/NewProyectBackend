@@ -5,46 +5,24 @@ const { createHash } = require('../utils/cryptPassword')
 
 const router = Router()
 
-router.post('/premium/:uid', (req, res) => {
-    const uid = req.params.uid;
+router.post('/', passport.authenticate('register', {failureRedirect: '/failRegister'}), async(req,res)=>{
+  const {firstName, lastName, age, email, password} = req.body
   
-    res.send('Premium user');
-})
+  try {
+    res.json({message:'usuario registrado'})
 
-router.post('/',passport.authenticate('register',{failureRedirect:'/failRegister'}),async(req,res)=>{
-    try {
-        res.json({message: 'Registered User'})
-    } catch (error) {
-        if(error.code === 11000)
-            return res.status(400).json({error:'User already exists'})
-        res.status(500).json({error:'Internal Server Error'})
+  } catch (error) {
+    if(error.code === 11000){
+      return res.status(400).json({Error: 'el usuario ya fue creado'})
     }
+      return res.status(500).json({Error: 'error interno del servidor'})
+  }
+  
+})
+router.get('/failRegister', async (req,res)=>{
+  console.log('falló el registro')
+  res.json({msj:'falló el registro'})
 })
 
-router.post('/:uid/documents', upload.array('documents'), (req,res)=>{
-    const uid = req.params.uid;
-    const uploadedFiles = req.files;
-
-    // Verificar si los documentos requeridos están presentes
-    const requiredDocuments = ['name', 'reference'];
-    const uploadedDocuments = uploadedFiles.map(file => file.fieldname);
-    const hasRequiredDocuments = requiredDocuments.every(document => uploadedDocuments.includes(document));
-
-    if (hasRequiredDocuments) {
-        // Lógica para actualizar el usuario a premium
-        // ...
-        res.json({message: 'Usuario actualizado a premium'});
-      } else {
-        // Lógica si no se cargaron los documentos requeridos
-        // ...
-        res.status(400).json({message:'Falta cargar documentos requeridos'});
-      }
-
-})
-
-router.get('/failRegister', async(req,res)=>{
-    console.log('Register Fail')
-    res.json({error:'Fail'})
-})
 
 module.exports = router

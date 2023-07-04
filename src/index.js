@@ -3,7 +3,7 @@ const cors = require('cors')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const morgan = require('morgan')
-const mongoConnect = require('../db')
+/* const mongoConnect = require('../db') */
 const router = require('./router')
 const passport = require('passport')
 const initializePassport = require('./config/passport.config')
@@ -73,7 +73,7 @@ app.set('views',__dirname + '/views')
 
 
 router(app)
-mongoConnect()
+
 
 app.listen(port ,()=>{
     console.log(`server runnin at port ${port}`)

@@ -1,0 +1,12 @@
+  <ul>
+    {{#each products}}
+      <li>
+        <h3>{{this.name}}</h3>
+        <p>{{this.description}}</p>
+        <p>Cantidad: {{this.quantity}}</p>
+        <p>Precio unitario: {{this.unitPrice}}</p>
+        <button class="btn-remove-to-cart" data-product-id="{{_id}}">eliminar del carrito</button>
+      </li>
+    {{/each}}
+  </ul>
+<script src="/NewProyectBackend/src/public/js/cart.js"></script>
